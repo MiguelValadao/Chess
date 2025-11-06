@@ -1,3 +1,5 @@
+// Class declaration
+
 class ChessBoard {
     constructor() {
         this.board = this.initializeBoard();
