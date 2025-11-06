@@ -16,8 +16,8 @@ class ChessBoard {
         board[0][0] = { type: 'rook', color: 'black', symbol: '♜' };
         board[0][1] = { type: 'knight', color: 'black', symbol: '♞' };
         board[0][2] = { type: 'bishop', color: 'black', symbol: '♝' };
-        board[0][3] = { type: 'queen', color: 'black', symbol: '♛' };
-        board[0][4] = { type: 'king', color: 'black', symbol: '♚' };
+        board[0][4] = { type: 'queen', color: 'black', symbol: '♛' };
+        board[0][3] = { type: 'king', color: 'black', symbol: '♚' };
         board[0][5] = { type: 'bishop', color: 'black', symbol: '♝' };
         board[0][6] = { type: 'knight', color: 'black', symbol: '♞' };
         board[0][7] = { type: 'rook', color: 'black', symbol: '♜' };
@@ -36,8 +36,8 @@ class ChessBoard {
         board[7][0] = { type: 'rook', color: 'white', symbol: '♖' };
         board[7][1] = { type: 'knight', color: 'white', symbol: '♘' };
         board[7][2] = { type: 'bishop', color: 'white', symbol: '♗' };
-        board[7][3] = { type: 'queen', color: 'white', symbol: '♕' };
-        board[7][4] = { type: 'king', color: 'white', symbol: '♔' };
+        board[7][4] = { type: 'queen', color: 'white', symbol: '♕' };
+        board[7][3] = { type: 'king', color: 'white', symbol: '♔' };
         board[7][5] = { type: 'bishop', color: 'white', symbol: '♗' };
         board[7][6] = { type: 'knight', color: 'white', symbol: '♘' };
         board[7][7] = { type: 'rook', color: 'white', symbol: '♖' };
