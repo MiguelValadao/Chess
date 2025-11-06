@@ -4,6 +4,7 @@ class ChessBoard {
         this.currentTurn = 'white';
         this.moveValidator = new MoveValidator(this);
         this.selectedPiece = null;
+        this.gameOver = false; // Add a game over flag
         this.validMoves = [];
         this.initEventListeners();
         this.updateDisplay();
@@ -64,6 +65,11 @@ class ChessBoard {
     }
 
     handleCellClick(cell, index) {
+        if (this.gameOver) {
+            document.getElementById('info-display').textContent = 'Game Over! Refresh to play again.';
+            return;
+        }
+
         const row = Math.floor(index / 8);
         const col = index % 8;
         
@@ -151,13 +157,24 @@ class ChessBoard {
     }
 
     makeMove(fromRow, fromCol, toRow, toCol) {
-        const piece = this.getPiece(fromRow, fromCol);
-        this.setPiece(toRow, toCol, piece);
+        const movingPiece = this.getPiece(fromRow, fromCol);
+        const targetPiece = this.getPiece(toRow, toCol);
+
+        // Check if a king is being captured
+        if (targetPiece && targetPiece.type === 'king') {
+            this.setPiece(toRow, toCol, movingPiece); // Move the piece to capture the king
+            this.setPiece(fromRow, fromCol, null); // Clear the original position
+            this.gameOver = true;
+            this.updateDisplay();
+            this.updateBoardView();
+            document.getElementById('info-display').textContent = `${movingPiece.color} wins! Game Over!`;
+            return; // End the turn as game is over
+        }
+
+        this.setPiece(toRow, toCol, movingPiece);
         this.setPiece(fromRow, fromCol, null);
         
-        // Switch turns
         this.currentTurn = this.currentTurn === 'white' ? 'black' : 'white';
-        this.updateDisplay();
         this.updateBoardView();
     }
 
@@ -165,6 +182,9 @@ class ChessBoard {
         document.getElementById('player').textContent = this.currentTurn;
         document.getElementById('player').style.textTransform = 'capitalize';
     }
+
+    // The updateBoardView method should be called after every move to reflect the board state.
+    // It's already being called in makeMove, so no change needed here.
 
     updateBoardView() {
         const cells = document.querySelectorAll('.chess-board td');
