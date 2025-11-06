@@ -1,0 +1,72 @@
+.chess-board {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.chess-board th {
+  padding: 0.5em;
+}
+
+.chess-board th + th {
+  border-bottom: 1px solid #000;
+}
+.chess-board th:first-child,
+.chess-board td:last-child {
+  border-right: 1px solid #000;
+}
+.chess-board tr:last-child td {
+  border-bottom: 1px solid;
+}
+
+.chess-board th:empty {
+  border: none;
+}
+
+.chess-board td {
+  width: 1.5em;
+  height: 1.5em;
+  text-align: center;
+  font-size: 32px;
+  line-height: 0;
+}
+
+.chess-board .light {
+  background: #eee;
+}
+
+.chess-board .dark {
+  background: #aaa;
+}
+
+.chess-board {
+  margin: 0px auto;
+}
+
+.chess-board td:hover {
+  cursor: grab;
+}
+
+p {
+  text-align: center;
+  font-weight: bold;
+}
+
+.valid-move {
+    background-color: lightgreen !important;
+    cursor: pointer;
+}
+
+.valid-move::after {
+    content: "•";
+    color: darkgreen;
+    font-size: 24px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.chess-board td {
+    position: relative;
+    cursor: pointer;
+}
