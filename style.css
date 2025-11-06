@@ -1,6 +1,12 @@
+body {
+  height: 50dvh;
+  margin-top: 5%;
+}
+
 .chess-board {
   border-spacing: 0;
   border-collapse: collapse;
+  border: solid 1px black;
 }
 
 .chess-board th {
@@ -69,4 +75,10 @@ p {
 .chess-board td {
     position: relative;
     cursor: pointer;
+}
+#trade {
+  scale: .7;
+  position: absolute;
+  margin-top: 9%;
+  margin-left: 85%;
 }
