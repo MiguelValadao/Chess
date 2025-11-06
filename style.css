@@ -76,9 +76,3 @@ p {
     position: relative;
     cursor: pointer;
 }
-#trade {
-  scale: .7;
-  position: absolute;
-  margin-top: 9%;
-  margin-left: 85%;
-}

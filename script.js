@@ -184,7 +184,6 @@ class ChessBoard {
     }
 
     // The updateBoardView method should be called after every move to reflect the board state.
-    // It's already being called in makeMove, so no change needed here.
 
     updateBoardView() {
         const cells = document.querySelectorAll('.chess-board td');
