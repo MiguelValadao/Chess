@@ -1,12 +1,10 @@
-// Class declaration
-
 class ChessBoard {
     constructor() {
         this.board = this.initializeBoard();
         this.currentTurn = 'white';
         this.moveValidator = new MoveValidator(this);
         this.selectedPiece = null;
-        this.gameOver = false; // Add a game over flag
+        this.gameOver = false;
         this.validMoves = [];
         this.initEventListeners();
         this.updateDisplay();
@@ -15,7 +13,6 @@ class ChessBoard {
     initializeBoard() {
         const board = Array(8).fill().map(() => Array(8).fill(null));
         
-        // Black pieces (top)
         board[0][0] = { type: 'rook', color: 'black', symbol: '♜' };
         board[0][1] = { type: 'knight', color: 'black', symbol: '♞' };
         board[0][2] = { type: 'bishop', color: 'black', symbol: '♝' };
@@ -25,17 +22,14 @@ class ChessBoard {
         board[0][6] = { type: 'knight', color: 'black', symbol: '♞' };
         board[0][7] = { type: 'rook', color: 'black', symbol: '♜' };
         
-        // Black pawns
         for (let col = 0; col < 8; col++) {
             board[1][col] = { type: 'pawn', color: 'black', symbol: '♟' };
         }
         
-        // White pawns
         for (let col = 0; col < 8; col++) {
             board[6][col] = { type: 'pawn', color: 'white', symbol: '♙' };
         }
-        
-        // White pieces (bottom)
+    
         board[7][0] = { type: 'rook', color: 'white', symbol: '♖' };
         board[7][1] = { type: 'knight', color: 'white', symbol: '♘' };
         board[7][2] = { type: 'bishop', color: 'white', symbol: '♗' };
@@ -75,13 +69,11 @@ class ChessBoard {
         const row = Math.floor(index / 8);
         const col = index % 8;
         
-        // Convert to board coordinates (HTML is 0-7 from top, chess is 0-7 from bottom)
         const boardRow = 7 - row;
         const boardCol = col;
 
         console.log(`Clicked: row ${boardRow}, col ${boardCol}`);
 
-        // If a piece is already selected
         if (this.selectedPiece) {
             const moveIsValid = this.isValidMove(
                 this.selectedPiece.row, 
@@ -94,7 +86,6 @@ class ChessBoard {
                 this.makeMove(this.selectedPiece.row, this.selectedPiece.col, boardRow, boardCol);
                 this.clearSelection();
             } else {
-                // If clicking on another piece of same color, select that instead
                 const clickedPiece = this.getPiece(boardRow, boardCol);
                 if (clickedPiece && clickedPiece.color === this.currentTurn) {
                     this.selectPiece(boardRow, boardCol);
@@ -103,7 +94,6 @@ class ChessBoard {
                 }
             }
         } else {
-            // Select a piece if it's the correct turn
             const clickedPiece = this.getPiece(boardRow, boardCol);
             if (clickedPiece && clickedPiece.color === this.currentTurn) {
                 this.selectPiece(boardRow, boardCol);
@@ -143,7 +133,6 @@ class ChessBoard {
     }
 
     getCellElement(row, col) {
-        // Convert board coordinates to HTML coordinates
         const htmlRow = 7 - row;
         const index = htmlRow * 8 + col;
         const cells = document.querySelectorAll('.chess-board td');
@@ -162,15 +151,14 @@ class ChessBoard {
         const movingPiece = this.getPiece(fromRow, fromCol);
         const targetPiece = this.getPiece(toRow, toCol);
 
-        // Check if a king is being captured
         if (targetPiece && targetPiece.type === 'king') {
-            this.setPiece(toRow, toCol, movingPiece); // Move the piece to capture the king
-            this.setPiece(fromRow, fromCol, null); // Clear the original position
+            this.setPiece(toRow, toCol, movingPiece); 
+            this.setPiece(fromRow, fromCol, null); 
             this.gameOver = true;
             this.updateDisplay();
             this.updateBoardView();
             document.getElementById('info-display').textContent = `${movingPiece.color} wins! Game Over!`;
-            return; // End the turn as game is over
+            return; 
         }
 
         this.setPiece(toRow, toCol, movingPiece);
@@ -185,7 +173,6 @@ class ChessBoard {
         document.getElementById('player').style.textTransform = 'capitalize';
     }
 
-    // The updateBoardView method should be called after every move to reflect the board state.
 
     updateBoardView() {
         const cells = document.querySelectorAll('.chess-board td');
@@ -198,10 +185,8 @@ class ChessBoard {
             const piece = this.getPiece(boardRow, boardCol);
             cell.textContent = piece ? piece.symbol : '';
             
-            // Remove existing piece classes
             cell.classList.remove('rook', 'knight', 'bishop', 'queen', 'king', 'pawn');
             
-            // Add appropriate classes
             if (piece) {
                 cell.classList.add(piece.type);
             }
@@ -209,7 +194,6 @@ class ChessBoard {
     }
 }
 
-// MoveValidator class (same as before, but ensure it's included)
 class MoveValidator {
     constructor(board) {
         this.board = board;
@@ -240,17 +224,14 @@ class MoveValidator {
         const direction = color === 'white' ? -1 : 1;
         const startRow = color === 'white' ? 6 : 1;
 
-        // Move forward one square
         if (this.isEmpty(row + direction, col)) {
             moves.push({ row: row + direction, col });
             
-            // Move forward two squares from starting position
             if (row === startRow && this.isEmpty(row + 2 * direction, col)) {
                 moves.push({ row: row + 2 * direction, col });
             }
         }
 
-        // Capture diagonally
         const captureDirections = [
             { row: direction, col: -1 },
             { row: direction, col: 1 }
@@ -376,7 +357,6 @@ class MoveValidator {
     }
 }
 
-// Initialize the game when page loads
 document.addEventListener('DOMContentLoaded', () => {
     window.chessGame = new ChessBoard();
 });
